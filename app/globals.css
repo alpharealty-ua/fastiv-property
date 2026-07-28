@@ -321,7 +321,7 @@ a {
 .intro {
   max-width: 660px;
   margin: 55px 0 95px;
-  font-size: clamp(1.25rem, 2.25vw, 2rem);
+  font-size: clamp(1.15rem, 1.55vw, 1.5rem);
   letter-spacing: -0.025em;
   line-height: 1.25;
   color: var(--muted);
