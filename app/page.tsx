@@ -183,7 +183,9 @@ export default function Home() {
 
         <div className="rental-price" aria-label="Вартість оренди">
           <p>Вартість оренди</p>
-          <strong>35 000 USD/міс з ПДВ</strong>
+          <strong>
+            35 000 <span>USD/міс з ПДВ</span>
+          </strong>
         </div>
       </section>
 

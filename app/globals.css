@@ -392,6 +392,11 @@ a {
   line-height: 1;
 }
 
+.rental-price strong span {
+  font-size: 0.48em;
+  letter-spacing: -0.01em;
+}
+
 .contact {
   padding: 30px;
   color: var(--white);
