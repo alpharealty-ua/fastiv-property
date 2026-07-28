@@ -180,6 +180,11 @@ export default function Home() {
             <dd>Зручна дорога</dd>
           </div>
         </dl>
+
+        <div className="rental-price" aria-label="Вартість оренди">
+          <p>Вартість оренди</p>
+          <strong>За запитом</strong>
+        </div>
       </section>
 
       <section className="contact" id="contact" aria-labelledby="contact-title">

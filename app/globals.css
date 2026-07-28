@@ -312,7 +312,7 @@ a {
 .description h2 {
   max-width: 1050px;
   margin: 0;
-  font-size: clamp(3rem, 7vw, 8rem);
+  font-size: clamp(3rem, 5.4vw, 6.4rem);
   font-weight: 600;
   letter-spacing: -0.065em;
   line-height: 0.93;
@@ -362,6 +362,34 @@ a {
 .facts dt {
   color: var(--gold-text);
   text-transform: uppercase;
+}
+
+.rental-price {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 20px;
+  align-items: baseline;
+  margin-top: 42px;
+  color: var(--gold-text);
+}
+
+.rental-price p,
+.rental-price strong {
+  margin: 0;
+}
+
+.rental-price p {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rental-price strong {
+  font-size: clamp(2rem, 3.2vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1;
 }
 
 .contact {
@@ -558,6 +586,13 @@ a {
     padding-right: 0;
     padding-left: 0;
     border-left: 0;
+  }
+
+  .rental-price {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 34px;
   }
 
   .contact h2 {
