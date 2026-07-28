@@ -1,6 +1,6 @@
 "use client";
 
-import { TouchEvent, useState } from "react";
+import { TouchEvent, useEffect, useState } from "react";
 
 const portraitPhotos = new Set([3, 4, 6, 9, 12, 15, 16, 23, 26, 27, 30]);
 const galleryPhotoNumbers = Array.from({ length: 31 }, (_, index) => index + 1)
@@ -17,6 +17,40 @@ const gallery = galleryPhotoNumbers.map((number, index) => {
 export default function Home() {
   const [activeImage, setActiveImage] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
+
+  useEffect(() => {
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-reveal]"),
+    );
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    document.documentElement.classList.add("reveal-ready");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -5% 0px",
+      },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("reveal-ready");
+    };
+  }, []);
 
   const goTo = (index: number) => {
     setActiveImage((index + gallery.length) % gallery.length);
@@ -46,7 +80,7 @@ export default function Home() {
         />
         <div className="hero-shade" />
 
-        <header className="hero-header">
+        <header className="hero-header" data-reveal>
           <a className="wordmark" href="#top" aria-label="Alpha Realty, на початок">
             <img src="logo-ua.svg" alt="Alpha Realty" />
           </a>
@@ -63,7 +97,7 @@ export default function Home() {
           </div>
         </header>
 
-        <div className="hero-content" id="top">
+        <div className="hero-content" id="top" data-reveal>
           <p className="eyebrow">
             Виробничо-складський комплекс / 7 000 м²
           </p>
@@ -78,7 +112,7 @@ export default function Home() {
       </section>
 
       <section className="gallery-section" aria-labelledby="gallery-title">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <p className="eyebrow" id="gallery-title">
             Об’єкт у деталях
           </p>
@@ -90,6 +124,7 @@ export default function Home() {
 
         <div
           className="gallery-frame"
+          data-reveal
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           tabIndex={0}
@@ -134,12 +169,12 @@ export default function Home() {
       </section>
 
       <section className="description" aria-labelledby="description-title">
-        <div className="section-index">
+        <div className="section-index" data-reveal>
           <p className="eyebrow">Про об’єкт</p>
           <p>01</p>
         </div>
 
-        <div className="description-copy">
+        <div className="description-copy" data-reveal>
           <h2 id="description-title">
             Простір для виробництва.
             <br />
@@ -154,7 +189,7 @@ export default function Home() {
           </p>
         </div>
 
-        <dl className="facts">
+        <dl className="facts" data-reveal>
           <div>
             <dt>Загальна площа</dt>
             <dd>7 000 м²</dd>
@@ -181,8 +216,12 @@ export default function Home() {
           </div>
         </dl>
 
-        <div className="rental-price" aria-label="Вартість оренди">
-          <p>Вартість оренди</p>
+        <div
+          className="rental-price"
+          aria-label="Вартість оренди"
+          data-reveal
+        >
+          <p>Вартість оренди:</p>
           <strong>
             35 000 <span>USD/міс з ПДВ</span>
           </strong>
@@ -190,12 +229,16 @@ export default function Home() {
       </section>
 
       <section className="contact" id="contact" aria-labelledby="contact-title">
-        <p className="eyebrow">Деталі об’єкта та приватний перегляд</p>
-        <h2 id="contact-title">Обговорімо цей об’єкт.</h2>
-        <a href="tel:+380443334096">
+        <p className="eyebrow" data-reveal>
+          Деталі об’єкта та приватний перегляд
+        </p>
+        <h2 id="contact-title" data-reveal>
+          Обговорімо цей об’єкт.
+        </h2>
+        <a href="tel:+380443334096" data-reveal>
           +38 (044) 333 40 96 <span aria-hidden="true">↗</span>
         </a>
-        <footer>
+        <footer data-reveal>
           <p>Fastiv / Виробничо-складський комплекс</p>
           <p>© 2026</p>
         </footer>
